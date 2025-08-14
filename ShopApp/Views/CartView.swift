@@ -1,18 +1,54 @@
-//
-//  CartView.swift
-//  ShopApp
-//
-//  Created by K V Jagadeesh babu on 14/08/25.
-//
-
 import SwiftUI
 
 struct CartView: View {
+    @ObservedObject var viewModel: ProductViewModel
+    @State private var showThankYou = false
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            VStack {
+                if viewModel.cartItems.isEmpty {
+                    Text("Your cart is empty")
+                        .foregroundColor(.gray)
+                } else {
+                    List {
+                        ForEach(viewModel.cartItems, id: \.id) { item in
+                            HStack {
+                                AsyncImage(url: URL(string: item.image)) { image in
+                                    image.resizable().scaledToFit()
+                                } placeholder: {
+                                    ProgressView()
+                                }
+                                .frame(width: 50, height: 50)
+                                
+                                VStack(alignment: .leading) {
+                                    Text(item.title).font(.headline)
+                                    Text("$\(String(format: "%.2f", item.price))")
+                                        .foregroundColor(.gray)
+                                }
+                            }
+                        }
+                    }
+                    Button("Checkout") {
+                        showThankYou = true
+                        viewModel.cartItems.removeAll()
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                    .padding()
+                }
+            }
+            .navigationTitle("Cart")
+            .alert("Thank You!", isPresented: $showThankYou) {
+                Button("OK", role: .cancel) {}
+            }
+        }
     }
 }
 
 #Preview {
-    CartView()
+    CartView(viewModel: ProductViewModel())
 }

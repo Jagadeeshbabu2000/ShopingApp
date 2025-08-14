@@ -1,6 +1,6 @@
 import Foundation
 
-struct ShopingElement: Codable {
+struct Product: Codable, Identifiable {
     let id: Int
     let title: String
     let price: Double
@@ -20,3 +20,5 @@ struct Rating: Codable {
     let rate: Double
     let count: Int
 }
+
+
