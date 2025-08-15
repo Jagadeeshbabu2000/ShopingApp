@@ -14,6 +14,8 @@ struct ProductItemView: View {
             }
             .frame(height: 120)
             .cornerRadius(8)
+            .frame(maxWidth: .infinity, alignment: .center)
+
             
             Text(product.title)
                 .font(.headline)

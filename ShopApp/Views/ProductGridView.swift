@@ -36,6 +36,8 @@ struct ProductGridView: View {
                 }
             }
             .navigationTitle("Shop")
+            .navigationBarTitleDisplayMode(.inline)
+
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink(destination: CartView(viewModel: viewModel)) {

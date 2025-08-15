@@ -42,6 +42,8 @@ struct CartView: View {
                 }
             }
             .navigationTitle("Cart")
+            .navigationBarTitleDisplayMode(.inline)
+            .font(.system(size: 20, weight: .bold))
             .alert("Thank You!", isPresented: $showThankYou) {
                 Button("OK", role: .cancel) {}
             }
